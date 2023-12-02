@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import java.util.Properties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -39,7 +37,6 @@ android {
         versionCode = 3
         versionName =
             "1.0.2" + "." + "git rev-parse --short=6 HEAD".runCommand(workingDir = rootDir)
-        buildConfigField("String", "RELEASE_TYPE", readProperties(file("../package.properties")).getProperty("releaseType"))
         setProperty("archivesBaseName", "Gramophone-$versionName")
     }
 
@@ -100,10 +97,4 @@ dependencies {
     implementation("me.zhanghai.android.fastscroll:library:1.3.0")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
     ksp("com.github.bumptech.glide:ksp:4.15.1")
-}
-
-fun readProperties(propertiesFile: File) = Properties().apply {
-    propertiesFile.inputStream().use { fis ->
-        load(fis)
-    }
 }
